@@ -1,0 +1,49 @@
+<html>
+<head>
+   <title>VueJs Instance</title>
+   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+   <body>
+      <div id = "databinding">
+         <button v-on:click = "displaynumbers">Click ME</button>
+         <h2> Add Number 100 + 200 = {{total}}</h2>
+         <button v-on:click = "displaynumberskurang">Click ME</button>
+         <h2> Add Number 100 - 200 = {{totalkurang}}</h2>
+         <button v-on:click = "displaynumberskali">Click ME</button>
+         <h2> Add Number 100 * 200 = {{totalkali}}</h2>
+         <button v-on:click = "displaynumbersbagi">Click ME</button>
+         <h2> Add Number 100 / 200 = {{totalbagi}}</h2>
+      </div>
+      <script type = "text/javascript">
+         var vm = new Vue({
+            el: '#databinding',
+            data: {
+               num1: 100,
+               num2 : 200,
+               total : '',
+               totalkurang : '',
+               totalkali : '',
+               totalbagi : ''
+            },
+            methods : {
+               displaynumbers : function(event) {
+                  console.log(event);
+                  return this.total =  this.num1+ this.num2;
+               },
+               displaynumberskurang : function(event) {
+                  console.log(event);
+                  return this.totalkurang =  this.num1- this.num2;
+               },
+               displaynumberskali : function(event) {
+                  console.log(event);
+                  return this.totalkali =  this.num1* this.num2;
+               },
+               displaynumbersbagi : function(event) {
+                  console.log(event);
+                  return this.totalbagi =  this.num1/ this.num2;
+               }
+            },
+         });
+      </script>
+   </body>
+</html>

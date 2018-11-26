@@ -1,0 +1,17 @@
+{
+  "name": "belajar_vue_js",
+  "version": "1.0.0",
+  "description": "belajar vue js",
+  "main": "index.js",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "vue-json-excel": "^0.2.96",
+    "vuetable": "^1.5.12"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "dicky sudaryatmo",
+  "license": "ISC"
+}
