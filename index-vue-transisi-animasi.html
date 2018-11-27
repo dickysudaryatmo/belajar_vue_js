@@ -1,0 +1,175 @@
+<html>
+<head>
+   <title>VueJs Instance</title>
+   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+   <link href = "https://cdn.jsdelivr.net/npm/animate.css@3.5.1" rel = "stylesheet" type = "text/css">
+</head>
+<body>
+   <script src = "https://cdnjs.cloudflare.com/ajax/libs/velocity/1.2.3/velocity.min.js"></script>
+   <style>
+   .fade-enter-active, .fade-leave-active {
+      transition: opacity 2s
+   }
+   .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+      opacity: 0
+   }
+   .shiftx-enter-active, .shiftx-leave-active {
+      transition: all 2s ease-in-out;
+   }
+   .shiftx-enter, .shiftx-leave-to /* .fade-leave-active below version 2.1.8 */ {
+      transform :  translateX(100px);
+   }
+   .shiftx-enter-active {
+      animation: shift-in 2s;
+   }
+   .shiftx-leave-active {
+      animation: shift-in 2s reverse;
+   }
+   @keyframes shift-in {
+      0%   {transform:rotateX(0deg);}
+      25%  {transform:rotateX(90deg);}
+      50%  {transform:rotateX(120deg);}
+      75%  {transform:rotateX(180deg);}
+      100% {transform:rotateX(360deg);}
+   }
+</style>
+<div id = "databinding">
+   <!--  -->
+   <button v-on:click = "show = !show">Klik utk transisi huruf</button>
+   <transition name= "fade">
+      <p v-show="show" v-bind:style="styleobj">Contoh Animasi</p>
+   </transition>
+   <button v-on:click = "showimg = !showimg">Klik utk transisi gambar</button>
+   <!--  -->
+   <transition name= "shiftx">
+      <p v-show= "showimg">
+         <img src="img/wip.png" style="width: 100px; height: 100px;">
+      </p>
+   </transition>
+   <button v-on:click = "showimganimasi = !showimganimasi">Klik utk animasi gambar</button>
+   <!--  -->
+   <transition name= "shiftx">
+      <p v-show= "showimganimasi">
+         <img src="img/wip.png" style="width: 100px; height: 100px;">
+      </p>
+   </transition>
+</br>  
+</div>
+<!-- custom animasi -->
+<div id = "animate" style = "text-align:center">
+   <p>Custom animasi</p>
+   <button @click = "showcustomanimasi = !showcustomanimasi"><span style = "font-size:25px;">Animate</span></button>
+   <transition
+      name = "custom-classes-transition"
+      enter-active-class = "animated swing"
+      leave-active-class = "animated bounceIn">
+      <p v-if = "showcustomanimasi"><span style = "font-size:25px;">Example</span></p>
+   </transition>
+</div>
+<div id = "example-4">
+   <p>JavaScript Hooks</p>
+   <button @click = "show = !show">
+      <span style = "font-size:25px;">Toggle</span>
+   </button>
+   <transition  v-on:before-enter = "beforeEnter"
+      v-on:enter = "enter"
+      v-on:leave = "leave"
+      v-bind:css = "false">
+      <p v-if = "show" style = "font-size:25px;">Animation Example with velocity</p>
+   </transition>
+</div>
+<div id = "animate2" style = "text-align:center">
+   <p>Transition at the Initial Render</p>
+   <transition
+      appear
+      appear-class = "custom-appear-class"
+      appear-active-class = "animated bounceIn">
+      <h1>BounceIn - Animation Example</h1>
+   </transition>
+   <transition
+      appear
+      appear-class = "custom-appear-class"
+      appear-active-class = "animated swing">
+      <h1>Swing - Animation Example</h1>
+   </transition>
+   <transition
+      appear
+      appear-class = "custom-appear-class"
+      appear-active-class = "animated rubberBand">
+      <h1>RubberBand - Animation Example</h1>
+   </transition>
+</div>
+<div id = "databinding2" style = "text-align:center;">
+   <transition  appear
+      appear-class = "custom-appear-class"
+      appear-active-class = "animated wobble">
+      <component v-bind:is = "view"></component>
+   </transition>
+</div>
+<script type = "text/javascript">
+   var vm = new Vue({
+      el: '#databinding',
+      data: {
+         show: true,
+         showimg: true,
+         showimganimasi: true,
+         styleobj: {
+            fontSize:'30px',
+            color:'blue'
+         }
+      },
+      methods : {
+
+      },
+   });
+   var vm2 =  new Vue({
+      el: '#animate',
+      data: {
+         showcustomanimasi: true,
+      }
+   });
+   var vm3 = new Vue({
+      el: '#example-4',
+      data: {
+         show: false
+      },
+      methods: {
+         beforeEnter: function (el) {
+            el.style.opacity = 0
+         },
+         enter: function (el, done) {
+            Velocity(el, { opacity: 1, fontSize: '25px' }, { duration: 1000 })
+            Velocity(el, { fontSize: '10px' }, { complete: done })
+         },
+         leave: function (el, done) {
+            Velocity(el, { translateX: '15px', rotateZ: '50deg' }, { duration: 1500 })
+            Velocity(el, { rotateZ: '100deg' }, { loop: 2 })
+            Velocity(el, {
+               rotateZ: '45deg',
+               translateY: '30px',
+               translateX: '30px',
+               opacity: 0
+            }, { complete: done })
+         }
+      }
+   });
+   var vm4 =  new Vue({
+      el: '#animate2',
+      data: {
+         show: true,
+      }
+   });
+   var vm5 = new Vue({
+      el: '#databinding2',
+      data: {
+         view: 'component1'
+      },
+      components: {
+         'component1': {
+            template: '<div><span style = "font-size:25;color:red;">Animation on Components</span></div>'
+         }
+      }
+   });
+</script>
+</body>
+</html>

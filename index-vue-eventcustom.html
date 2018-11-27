@@ -1,0 +1,90 @@
+<html>
+<head>
+   <title>VueJs Instance</title>
+   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+ <body>
+      <div id = "databinding">
+         <button v-on:click.once = "buttonclickedonce" v-bind:style = "styleobj">Click Once</button>
+         Output:{{clicknum}}
+         <br/><br/>
+         <button v-on:click = "buttonclicked"  v-bind:style = "styleobj">Click Me</button>
+         Output:{{clicknum1}}
+         </br>
+         <a href = "http://www.google.com" v-on:click.prevent = "clickme" target = "_blank" v-bind:style = "styleobj2">Click Me</a>
+         </br>
+          <input type = "text" v-on:keyup.enter = "showinputvalue" v-bind:style = "styleobj3" placeholder = "Enter your name"/>
+         <h3> {{name}}</h3>
+         </br>
+         <div id = "counter-event-example">
+            <p style = "font-size:25px;">Language displayed : <b>{{ languageclicked }}</b></p>
+            <button-counter
+            v-for = "(item, index) in languages"
+            v-bind:item = "item"
+            v-bind:index = "index"
+            v-on:showlanguage = "languagedisp"></button-counter>
+         </div>
+      </div>
+      <script type = "text/javascript">
+         Vue.component('button-counter', {
+            template: '<button v-on:click = "displayLanguage(item)"><span style = "font-size:25px;">{{ item }}</span></button>',
+            data: function () {
+               return {
+                  counter: 0
+               }
+            },
+            props:['item'],
+            methods: {
+               displayLanguage: function (lng) {
+                  console.log(lng);
+                  this.$emit('showlanguage', lng);
+               }
+            },
+         });
+         var vm = new Vue({
+            el: '#databinding',
+            data: {
+               languageclicked: "",
+               languages : ["Java", "PHP", "C++", "C", "Javascript", "C#", "Python", "HTML"],
+               clicknum : 0,
+               clicknum1 :0,
+               name: '',
+               styleobj: {
+                  backgroundColor: '#2196F3!important',
+                  cursor: 'pointer',
+                  padding: '8px 16px',
+                  verticalAlign: 'middle',
+               },
+               styleobj2: {
+                  color: '#4CAF50',
+                  marginLeft: '20px',
+                  fontSize: '30px'
+               },
+               styleobj3: {
+                  width: "30%",
+                  padding: "12px 20px",
+                  margin: "8px 0",
+                  boxSizing: "border-box"
+               }
+            },
+            methods : {
+               buttonclickedonce : function() {
+                  this.clicknum++;
+               },
+               buttonclicked : function() {
+                  this.clicknum1++;
+               },
+               clickme : function() {
+                  alert("Anchor tag is clicked");
+               },
+               showinputvalue : function(event) {
+                  this.name=event.target.value;
+               },
+               languagedisp: function (a) {
+                  this.languageclicked = a;
+               }
+            }
+         });
+      </script>
+   </body>
+</html>
