@@ -1,2 +1,2 @@
-# belajar_vue_js
+# belajar vue js
 Tutorial Dasar Vue JS
