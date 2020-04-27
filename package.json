@@ -4,7 +4,7 @@
   "description": "belajar vue js",
   "main": "index.js",
   "dependencies": {
-    "axios": "^0.18.0",
+    "axios": "^0.18.1",
     "vue-json-excel": "^0.2.96",
     "vuetable": "^1.5.12"
   },
